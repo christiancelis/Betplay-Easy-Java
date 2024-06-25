@@ -49,9 +49,9 @@ public class Validador {
     }
 
     public static boolean IsInteger(String text) {
-        int v;
         try {
-          v=Integer.parseInt(text);
+            int v=0;
+            v=Integer.parseInt(text);
           return true;
         } catch (NumberFormatException ex) {
            return false;

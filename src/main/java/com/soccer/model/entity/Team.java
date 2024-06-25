@@ -45,11 +45,19 @@ public class Team {
     public void setLstMasajistas(Doctor masajista) {
         this.lstMasajistas.add(masajista);
     }
+   
     @Override
     public String toString() {
-        return "Team [nombre=" + nombre + ", ciudad=" + ciudad + ", lstJugadores=" + lstJugadores + ", lstEntrenadores="
-                + lstEntrenadores + ", lstMasajistas=" + lstMasajistas + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Equipo: ").append(getNombre()).append("\n");
+        sb.append("Ciudad: ").append(getCiudad()).append("\n");
+        sb.append("Jugadores: \n");
+
+        for (Player jugador : getLstJugadores()) {
+            sb.append("- ").append(jugador.getId()).append(": ").append(jugador.getNombre()).append(" ").append(jugador.getApellido()).append(" (").append(jugador.getPosicion()).append(")\n");
+        }
+
+        return sb.toString();
     }
-    
     
 }

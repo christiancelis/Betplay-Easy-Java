@@ -1,18 +1,19 @@
 package com.soccer.view;
 
 
+import java.util.Enumeration;
 import java.util.Scanner;
 import com.soccer.Controller;
 import com.soccer.model.entity.Player;
 import com.soccer.model.entity.Team;
 
 public class viewPlayer {
+        public static Controller controlador;
        
-       public void startp(Scanner scanner,Controller controlador){
+       public void startp(Scanner scanner){
        Validador val = new Validador();
-       Player pl = new Player();
         String codigoE = null;
-        Team eq = new Team();
+        String codigoJ =null;
         int choice;
         
 
@@ -30,28 +31,25 @@ public class viewPlayer {
             System.out.println("3. Buscar Jugador");
             System.out.println("4. Eliminar jugador");
             System.out.println("5. Listar todos jugadores");
-            System.out.println("6. Salir");
+            System.out.println("6. Volver");
 
             choice = Integer.parseInt(val.leerdato("Elija una opcion: ", scanner));
             System.out.println("\n");
 
             switch (choice) {
                 case 1:
+                    
                      try {
                             codigoE = val.leerdato("Ingrese el codigo del equipo: ", scanner);
-                            eq = controlador.equipos.get(codigoE);
-
-                            if (eq == null) {
-                                   System.out.println("Error, Codigo No Existe");
-                                   continue;
+                            if(!controlador.equipos.containsKey(codigoE)){
+                                System.out.println("El Codigo de Equipo no existe");
+                                continue;
                             }
-                            
+                            crearJugador(val, codigoE, scanner);
                      } catch (Exception e) {
-                            System.out.println("El Codigo de Equipo no existe");
+                            System.out.println(e);
                             continue;
                      }
-                     
-                     crearJugador(val, controlador, eq,pl, codigoE, scanner);
                      break;
 
                 case 2:
@@ -59,8 +57,20 @@ public class viewPlayer {
                     break;
 
                 case 3:
+                    codigoJ = val.leerdato("Ingrese el codigo del jugador a buscar: ", scanner);
+                    if(!controlador.jugadores.containsKey(codigoJ)){
+                        System.out.println("El Codigo de Jugador no existe");
+                        continue;
+                    }
+                    buscarJugador(codigoJ);
                     break;
                 case 4:
+                    codigoJ = val.leerdato("Ingrese el codigo del jugador a eliminar: ", scanner);
+                    if(!controlador.jugadores.containsKey(codigoJ)){
+                        System.out.println("El Codigo de Jugador no existe");
+                        continue;
+                    }
+                    eliminarJugador(codigoJ);
                     break;
                 case 5:
                     break;
@@ -75,15 +85,16 @@ public class viewPlayer {
     }
 
 
-    public static void crearJugador(Validador val, Controller controlador, Team eq,Player jugador, String codigoE, Scanner sc){
+    public static void crearJugador(Validador val, String codigoE, Scanner sc){
         while (true) {
-            eq = controlador.equipos.get(codigoE);
+            Team eq = controlador.equipos.get(codigoE);
             String id = val.leerdato("Ingresa el id del usuario: ",sc);
-            Player pl = controlador.jugadores.get(id);
-            if(pl!=null){
+            if(controlador.jugadores.containsKey(id)){
                 System.out.println("Jugador ya existe");
                 continue;
             }
+            Player jugador = new Player();
+
             jugador.setId(id);
             jugador.setNombre(val.leerdato("Digita el nombre del jugador: ",sc));
             jugador.setApellido(val.leerdato("Digite Apellido del jugador: ", sc));
@@ -91,12 +102,22 @@ public class viewPlayer {
             jugador.setDorsal(val.leerNumero("Digite dorsal del jugador: ", sc));
             jugador.setPosicion(val.leerdato("Digite posicion del jugador: ", sc));
 
-            eq.setLstJugadores(jugador);
+            eq.getLstJugadores().add(jugador);
             controlador.jugadores.put(id, jugador);
 
             return ;
         }
-       
-    };
+    }
+
+    public static void buscarJugador(String codeJ) {
+        Player jugador = controlador.jugadores.get(codeJ);
+        System.out.println("Jugador: " + codeJ);
+        System.out.println("Nombre: " + jugador.getNombre() +", Apellido: " +  jugador.getApellido() + ", Edad: " + jugador.getEdad() + ", Numero Camisa: " + jugador.getDorsal() + ", Posicion: " + jugador.getPosicion() );
+    }
+
+    public static void eliminarJugador(String codeJ){
+        controlador.jugadores.remove(codeJ);
+        System.out.println("Jugador eliminado con exito.");
+    }
 
 }
