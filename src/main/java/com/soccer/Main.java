@@ -2,6 +2,8 @@ package com.soccer;
 
 import java.util.Scanner;
 
+import com.soccer.view.viewCoach;
+import com.soccer.view.viewDoctor;
 import com.soccer.view.viewPlayer;
 import com.soccer.view.viewTeam;
 
@@ -15,9 +17,13 @@ public class Main {
 
         viewTeam.controlador = ctrlTeams;
         viewPlayer.controlador = ctrlTeams;
+        viewDoctor.controlador = ctrlTeams;
+        viewCoach.controlador = ctrlTeams;
         
         viewTeam vt = new viewTeam();
         viewPlayer vtp = new viewPlayer();
+        viewDoctor vtd = new viewDoctor();
+        viewCoach vtc = new viewCoach();
 
 
 
@@ -61,13 +67,29 @@ public class Main {
                     vt.start(sc);
                     break;
                 case "2":
+                    if(ctrlTeams.equipos.isEmpty()){
+                        System.out.println("\nInserte Equipos para acceder a este menu\n");
+                        continue;
+                    }
                     vtp.startp(sc);
                     break;
                 case "3":
+                if(ctrlTeams.equipos.isEmpty()){
+                    System.out.println("\nInserte Equipos para acceder a este menu\n");
+                    continue;
+                }
+                    vtd.startD(sc);
                     break;
                 case "4":
-                    return;
+                if(ctrlTeams.equipos.isEmpty()){
+                    System.out.println("\nInserte Equipos para acceder a este menu\n");
+                    continue;
+                }
+                    vtc.startC(sc);
+                    break;
                 case "5":
+                System.out.println("\nSaliendo.................................\n");
+                System.out.println("\nMade by Christian Celis - DarkHouse - All Right Reserved - Liga BetPlay \n");
                     sc.close();
                     System.exit(0);
                     break;

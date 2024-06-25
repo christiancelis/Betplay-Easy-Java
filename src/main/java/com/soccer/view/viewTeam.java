@@ -3,6 +3,8 @@ package com.soccer.view;
 import java.util.Enumeration;
 import java.util.Scanner;
 import com.soccer.Controller;
+import com.soccer.model.entity.Coach;
+import com.soccer.model.entity.Doctor;
 import com.soccer.model.entity.Player;
 import com.soccer.model.entity.Team;
 
@@ -111,10 +113,29 @@ public class viewTeam {
                         System.out.println("Codigo Equipo: " + codigoE);
                         System.out.println("Nombre: " + equipo.getNombre());
                         System.out.println("Ciudad: " + equipo.getCiudad() + "\n");
-                        scanner.nextLine();
+                        
                     } catch (Exception e) {
                         System.out.println("Equipo no encontrado -> Mensaje de Error: " + e);
                     }
+                    System.out.println("Jugadores: ");
+                    for (Player item : equipo.getLstJugadores()) {
+
+                        System.out.println("\nId: " + item.getId() + ", Nombre: "+ item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: " + item.getEdad() + ", Numero camisa: " + item.getDorsal() + ", Posicion: " + item.getPosicion());
+                    }
+                    System.out.println("Doctores: ");
+                    for (Doctor item : equipo.getLstMasajistas()) {
+                        System.out.println("Id: " + item.getId() + ",Nombre: " + item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: "
+                        + item.getEdad() + ", Titulo: " + item.getTitulo() + ", Años de Experiencia: "
+                        + item.getExpYear());
+                        
+                    }
+                    System.out.println("Entrenadores: ");
+                    for (Coach item : equipo.getLstEntrenadores()) {
+                        System.out.println("Id: " + item.getId()+ "Nombre: " + item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: "
+                        + item.getEdad() + ", id Federacion: " + item.getIdFederacion());
+                        
+                    }
+
                     break;
                 case 4:
                     try {
@@ -166,6 +187,19 @@ public class viewTeam {
                 for (Player item : e.getLstJugadores()) {
 
                     System.out.println("\nId: " + item.getId() + ", Nombre: "+ item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: " + item.getEdad() + ", Numero camisa: " + item.getDorsal() + ", Posicion: " + item.getPosicion());
+                }
+                System.out.println("Doctores: ");
+                for (Doctor item : e.getLstMasajistas()) {
+                    System.out.println("Id: " + item.getId() + ",Nombre: " + item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: "
+                    + item.getEdad() + ", Titulo: " + item.getTitulo() + ", Años de Experiencia: "
+                    + item.getExpYear());
+                    
+                }
+                System.out.println("Entrenadores: ");
+                for (Coach item : e.getLstEntrenadores()) {
+                    System.out.println("Id: " + item.getId()+ "Nombre: " + item.getNombre() + ", Apellido: " + item.getApellido() + ", Edad: "
+                    + item.getEdad() + ", id Federacion: " + item.getIdFederacion());
+                    
                 }
             }
         } catch (Exception e) {
